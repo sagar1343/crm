@@ -4,20 +4,17 @@
         class="max-w-sm w-full bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
         <div class="flex items-start justify-between mb-3">
             <div class="flex items-center space-x-3">
-                <a href="" target="_blank" rel="noopener noreferrer" class="flex-shrink-0">
-                    <img src="{{ agent.profile_photo.url }}" alt="{{ agent.user.username  }}"
-                        class="w-12 h-12 rounded-full object-cover border border-gray-200" />
-                </a>
+                <img src="{{ agent.profile_photo.url }}" alt="{{ agent.user.username  }}"
+                    class="w-12 h-12 rounded-full object-cover border border-gray-200" />
                 <div class="min-w-0 flex-1">
                     <div class="flex items-center space-x-1">
-                        <a href="" target="_blank" rel="noopener noreferrer"
-                            class="font-bold text-gray-900 hover:underline truncate">
+                        <span class="font-bold text-gray-900 hover:underline truncate">
                             {{ agent.user.first_name }}
-                        </a>
+                        </span>
                     </div>
-                    <a href="" target="_blank" rel="noopener noreferrer" class="text-gray-500 text-sm hover:underline">
+                    <span class="text-gray-500 text-sm hover:underline">
                         @{{ agent.user.username }}
-                    </a>
+                    </span>
                 </div>
             </div>
         </div>

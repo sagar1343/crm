@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Agent
+from .models import Agent, Property
 
 
 # Create your views here.
@@ -14,7 +14,9 @@ def agents(request):
 
 
 def properties(request):
-    return render(request, "pages/properties.html")
+    queryset = Property.objects.all()
+    context = {"properties": queryset}
+    return render(request, "pages/properties.html", context)
 
 
 def leads(request):

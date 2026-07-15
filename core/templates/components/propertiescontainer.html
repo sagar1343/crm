@@ -1,0 +1,18 @@
+<div class="flex gap-4 flex-wrap">
+    {% for property in properties %}
+    <div
+        class="flex items-center p-2 border border-black/10 hover:border-black/20 transition-colors rounded-xl w-full max-w-[380px]">
+        <img src="{{ property.image.url }}" alt="House" class="w-full max-w-[118px] rounded-lg object-cover" />
+        <div class="ml-4">
+            <h3 class="text-lg text-zinc-900">{{ property.title }}</h3>
+            <p class="text-base text-zinc-600">{{ property.address }}</p>
+            <p class="text-lg text-zinc-900 mt-3">₹ {{ property.price }}</p>
+            <div class="text-sm text-zinc-600 flex items-center gap-1.5">
+                {{ property.area_sqft }} sqft
+                <div class='size-1 rounded-full bg-[#777777]'></div>
+                {{ property.status }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
