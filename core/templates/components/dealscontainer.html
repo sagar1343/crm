@@ -1,0 +1,50 @@
+<div class="overflow-x-auto">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Property</th>
+                <th>Lead</th>
+                <th>Agent</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th>Commission</th>
+                <th>Expected Closing</th>
+                <th>Actual Closing</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for deal in deals %}
+            <tr>
+                <td>
+                    <div class="flex items-center gap-3">
+                        <div class="avatar">
+                            <div class="mask mask-squircle h-12 w-12">
+                                <img src="{{ deal.property.image.url }}" alt="{{ deal.property.title }}" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-bold">{{ deal.property.title }}</div>
+                            <div class="text-sm opacity-50">{{ deal.property.city }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    {{ deal.lead.full_name }}
+                    <br />
+                    <span class="text-xs text-neutral-400">{{ deal.lead.phone_number }}</span>
+                </td>
+                <td class="link">
+                    <a href="{% url 'agents' %}">{{ deal.lead.assigned_agent.user.first_name }}</a>
+                </td>
+
+                <td><span class="badge badge-soft capitalize badge-accent">{{ deal.status }}</span></td>
+                {% load humanize %}
+                <td class="capitalize">{{ deal.amount | intword }}</td>
+                <td>{{ deal.commission_percent }} %</td>
+                <td>{{ deal.expected_closing_date }}</td>
+                <td>{{ deal.actual_closing_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
