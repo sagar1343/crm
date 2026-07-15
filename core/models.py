@@ -4,10 +4,14 @@ from django.contrib.auth.models import User
 
 class Agent(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    profile_photo = models.ImageField(
+        upload_to="profiles", default="profiles/default.jpg"
+    )
     phone_number = models.CharField(max_length=10)
     region = models.CharField(max_length=50)
     commission_share = models.DecimalField(max_digits=4, decimal_places=2)
     monthly_target = models.DecimalField(max_digits=12, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"agent:{self.user.username}"
