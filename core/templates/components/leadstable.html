@@ -1,0 +1,35 @@
+<div class="overflow-x-auto">
+    <table class="table table-zebra">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Lead</th>
+                <th>Contact</th>
+                <th>Source</th>
+                <th>Status</th>
+                <th>Budget</th>
+                <th>Agent</th>
+                <th>Preferred Location</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in leads %}
+            <tr>
+                <th>{{ row.id }}</th>
+                <td>{{ row.full_name }}</td>
+                <td>{{ row.phone_number }}</td>
+                <td><span class="badge badge-soft capitalize badge-accent">{{ row.source }}</span></td>
+                {% load humanize %}
+                <td><span class="badge badge-soft capitalize badge-secondary">{{ row.status }}</span></td>
+                <td class="capitalize">{{ row.min_budget | intword }} - {{row.max_budget | intword }}</td>
+                <td class="link">
+                    <a href="{% url 'agents' %}">{{ row.assigned_agent.user.first_name }}</a>
+                </td>
+                <td>{{ row.preferred_location }}</td>
+                <td>{{ row.created_at.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -7,7 +7,7 @@
             <p class="text-sm text-zinc-600">{{ property.description }}</p>
             <p class="text-base text-zinc-600">{{ property.address }}</p>
             {% load humanize %}
-            <p class="text-lg text-zinc-900 mt-3">{{ property.price | intword}}</p>
+            <p class="capitalize text-zinc-900 mt-3">{{ property.price | intword}}</p>
             <div class="flex w-full items-center justify-between">
                 <div class="text-sm text-zinc-600 flex items-center gap-1.5">
                     {{ property.area_sqft }} sqft
