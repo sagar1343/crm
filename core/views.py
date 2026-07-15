@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Agent, Property, Lead, Deal
+from .forms import AgentForm
 
 
 # Create your views here.
@@ -8,8 +9,12 @@ def home(request):
 
 
 def agents(request):
+    form = AgentForm(request.POST or None, request.FILES or None)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+
     queryset = Agent.objects.all()
-    context = {"agents": queryset}
+    context = {"agents": queryset, "form": form}
     return render(request, "pages/agents.html", context)
 
 
