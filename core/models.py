@@ -7,7 +7,7 @@ class Agent(models.Model):
     phone_number = models.CharField(max_length=10)
     region = models.CharField(max_length=50)
     commission_share = models.DecimalField(max_digits=4, decimal_places=2)
-    monthly_target = models.DecimalField(max_digits=10, decimal_places=2)
+    monthly_target = models.DecimalField(max_digits=12, decimal_places=2)
 
     def __str__(self):
         return f"agent:{self.user.username}"
@@ -29,7 +29,7 @@ class Property(models.Model):
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     property_type = models.CharField(max_length=12, choices=ProperyType.choices)
-    images = models.ImageField(upload_to="properties")
+    image = models.ImageField(upload_to="properties")
     price = models.DecimalField(max_digits=12, decimal_places=2)
     status = models.CharField(
         max_length=12, choices=Status.choices, default=Status.AVAILABLE
@@ -83,7 +83,7 @@ class Deal(models.Model):
     lead = models.ForeignKey(to=Lead, on_delete=models.CASCADE)
     property = models.ForeignKey(to=Property, on_delete=models.CASCADE)
     status = models.CharField(
-        max_length=12, choices=DealStatus, default=DealStatus.PENDING
+        max_length=12, choices=DealStatus.choices, default=DealStatus.PENDING
     )
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     expected_closing_date = models.DateField()
