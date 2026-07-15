@@ -11,3 +11,12 @@ Add Property
 {% block content %}
 {% include 'components/propertiescontainer.html' %}
 {% endblock %}
+
+
+{% block formcontent %}
+<form action="{% url 'properties' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}

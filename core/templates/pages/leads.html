@@ -12,3 +12,12 @@ Add Leads
 {% block content %}
 {% include 'components/leadstable.html' %}
 {% endblock %}
+
+
+{% block formcontent %}
+<form action="{% url 'leads' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}
