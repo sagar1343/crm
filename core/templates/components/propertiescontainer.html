@@ -1,16 +1,23 @@
-<div class="flex gap-4 flex-wrap">
+<div class="flex justify-evenly gap-4 flex-wrap">
     {% for property in properties %}
-    <div
-        class="flex items-center p-2 border border-black/10 hover:border-black/20 transition-colors rounded-xl w-full max-w-[380px]">
-        <img src="{{ property.image.url }}" alt="House" class="w-full max-w-[118px] rounded-lg object-cover" />
-        <div class="ml-4">
+    <div class="flex items-center p-4 border border-black/10 hover:border-black/20 transition-colors rounded-xl w-full">
+        <img src="{{ property.image.url }}" alt="House" class="w-full max-w-40 h-full rounded-lg object-cover" />
+        <div class="ml-4 w-full">
             <h3 class="text-lg text-zinc-900">{{ property.title }}</h3>
+            <p class="text-sm text-zinc-600">{{ property.description }}</p>
             <p class="text-base text-zinc-600">{{ property.address }}</p>
-            <p class="text-lg text-zinc-900 mt-3">₹ {{ property.price }}</p>
-            <div class="text-sm text-zinc-600 flex items-center gap-1.5">
-                {{ property.area_sqft }} sqft
-                <div class='size-1 rounded-full bg-[#777777]'></div>
-                {{ property.status }}
+            {% load humanize %}
+            <p class="text-lg text-zinc-900 mt-3">{{ property.price | intword}}</p>
+            <div class="flex w-full items-center justify-between">
+                <div class="text-sm text-zinc-600 flex items-center gap-1.5">
+                    {{ property.area_sqft }} sqft
+                    <div class='size-1 rounded-full bg-[#777777]'></div>
+                    <span class="badge badge-primary capitalize ">{{ property.status }}</span>
+                    <div class='size-1 rounded-full bg-[#777777]'></div>
+                    <span class="badge badge-secondary capitalize">
+                        {{ property.property_type }}</span>
+                </div>
+                <span class="text-light text-xs">{{ property.listed_at }}</span>
             </div>
         </div>
     </div>

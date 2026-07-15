@@ -29,7 +29,7 @@ class Property(models.Model):
         SOLD = "sold", "Sold"
 
     title = models.CharField(max_length=255)
-    Description = models.TextField()
+    description = models.TextField()
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     property_type = models.CharField(max_length=12, choices=ProperyType.choices)
