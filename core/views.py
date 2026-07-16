@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Agent, Property, Lead, Deal
 from .forms import AgentForm, DealForm, LeadForm, PropertyForm, EditAgentForm
+from django.views.decorators.http import require_POST
 
 
 # Create your views here.
@@ -34,7 +35,11 @@ def leads(request):
         form.save()
 
     queryset = Lead.objects.all()
-    context = {"leads": queryset, "form": LeadForm()}
+    context = {
+        "leads": queryset,
+        "form": LeadForm(),
+        "lead_statuses": Lead.LeadStatus.choices,
+    }
     return render(request, "pages/leads.html", context)
 
 
@@ -72,10 +77,58 @@ def edit_property(request, id):
 
 def edit_lead(request, id):
     instance = get_object_or_404(Lead, id=id)
-    form = LeadForm(request.POST or None, request.FILES or None, instance=instance)
+    form = LeadForm(request.POST or None, instance=instance)
     if request.method == "POST" and form.is_valid():
         form.save()
         return redirect("leads")
 
     context = {"editform": form, "id": id}
     return render(request, "pages/editleads.html", context)
+
+
+def edit_deal(request, id):
+    instance = get_object_or_404(Deal, id=id)
+    form = DealForm(request.POST or None, instance=instance)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("deals")
+
+    context = {"editform": form, "id": id}
+    return render(request, "pages/editdeal.html", context)
+
+
+@require_POST
+def delete_deal(request, id):
+    instance = get_object_or_404(Deal, id=id)
+    instance.delete()
+    return redirect("deals")
+
+
+@require_POST
+def delete_agent(request, id):
+    instance = get_object_or_404(Agent, id=id)
+    instance.delete()
+    return redirect("agents")
+
+
+@require_POST
+def delete_lead(request, id):
+    instance = get_object_or_404(Lead, id=id)
+    instance.delete()
+    return redirect("leads")
+
+
+@require_POST
+def delete_property(request, id):
+    instance = get_object_or_404(Property, id=id)
+    instance.delete()
+    return redirect("properties")
+
+
+@require_POST
+def update_lead_status(request, id):
+    status = request.POST.get("status")
+    instance = get_object_or_404(Lead, id=id)
+    instance.status = status
+    instance.save()
+    return redirect("leads")

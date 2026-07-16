@@ -7,10 +7,16 @@
             <p class="text-sm text-zinc-600">{{ property.description }}</p>
             <p class="text-sm text-zinc-600 font-semibold">{{ property.listing_agent.user.first_name }}</p>
             <p class="text-base text-zinc-600">{{ property.address }}</p>
-            <div>
+            <div class="flex items-center gap-1">
                 <a href="{% url 'edit-property' property.id %}" class="btn btn-xs">
                     <i class="ph ph-pencil"></i>
                 </a>
+                <form action="{% url 'delete-property' property.id %}" method="post" class="mt-0! w-auto!">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-xs">
+                        <i class="ph ph-trash"></i>
+                    </button>
+                </form>
             </div>
             {% load humanize %}
             <p class="capitalize text-zinc-900 mt-3">{{ property.price | intword}}</p>

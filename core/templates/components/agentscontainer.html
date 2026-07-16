@@ -11,10 +11,16 @@
                         <span class="font-bold text-gray-900 hover:underline truncate">
                             {{ agent.user.first_name }}
                         </span>
-                        <div>
+                        <div class="flex items-center gap-1">
                             <a href="{% url 'edit-agent' agent.id %}" class="btn btn-xs">
                                 <i class="ph ph-pencil"></i>
                             </a>
+                            <form action="{% url 'delete-agent' agent.id %}" method="post" class="mt-0!">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-xs">
+                                    <i class="ph ph-trash"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <span class="text-gray-500 text-sm hover:underline">

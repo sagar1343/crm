@@ -22,7 +22,20 @@
                 <td>{{ row.phone_number }}</td>
                 <td><span class="badge badge-soft capitalize badge-accent">{{ row.source }}</span></td>
                 {% load humanize %}
-                <td><span class="badge badge-soft capitalize badge-secondary">{{ row.status }}</span></td>
+                <td>
+                    <form id="change-status-form" action="{% url 'update-lead-status' row.id %}" method="post">
+                        {% csrf_token %}
+                        <select name="status" id="select-status" class="select select-info">
+                            {% for value, label in lead_statuses %}
+                            {% if value == row.status %}
+                            <option value="{{ value }}" selected>{{ label }}</option>
+                            {% else %}
+                            <option value="{{ value }}">{{ label }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </form>
+                </td>
                 <td class="capitalize">{{ row.min_budget | intword }} - {{row.max_budget | intword }}</td>
                 <td class="link">
                     <a href="{% url 'agents' %}">{{ row.assigned_agent.user.first_name }}</a>
@@ -30,9 +43,17 @@
                 <td>{{ row.preferred_location }}</td>
                 <td>{{ row.created_at.date }}</td>
                 <td>
-                    <a href="{% url 'edit-lead' row.id %}" class="btn btn-xs">
-                        <i class="ph ph-pencil"></i>
-                    </a>
+                    <div class="flex items-center gap-1">
+                        <a href="{% url 'edit-lead' row.id %}" class="btn btn-xs">
+                            <i class="ph ph-pencil"></i>
+                        </a>
+                        <form action="{% url 'delete-lead' row.id %}" method="post" class="mt-0!">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-xs">
+                                <i class="ph ph-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             {% endfor %}

@@ -10,6 +10,7 @@
                 <th>Commission</th>
                 <th>Expected Closing</th>
                 <th>Actual Closing</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +44,19 @@
                 <td>{{ deal.commission_percent }} %</td>
                 <td>{{ deal.expected_closing_date }}</td>
                 <td>{{ deal.actual_closing_date }}</td>
+                <td>
+                    <div class="flex gap-1">
+                        <a href="{% url 'edit-deal' deal.id %}" class="btn btn-xs">
+                            <i class="ph ph-pencil"></i>
+                        </a>
+                        <form action="{% url 'delete-deal' deal.id %}" method="post" class="mt-0!">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-xs">
+                                <i class="ph ph-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

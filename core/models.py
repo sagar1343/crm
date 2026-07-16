@@ -39,7 +39,7 @@ class Property(models.Model):
         max_length=12, choices=Status.choices, default=Status.AVAILABLE
     )
     listing_agent = models.ForeignKey(
-        to=Agent, on_delete=models.DO_NOTHING, null=True, blank=True
+        to=Agent, on_delete=models.CASCADE, null=True, blank=True
     )
     area_sqft = models.PositiveIntegerField()
     listed_at = models.DateTimeField(auto_now_add=True)
