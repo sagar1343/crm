@@ -10,3 +10,39 @@
 * {
   font-family: "Roboto", sans-serif;
 }
+
+form {
+  width: 100%;
+  max-height: 80vh;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(143, 143, 143);
+}
+
+.gridform {
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.gridform > button {
+  grid-column: span 2;
+}
+
+#id_image {
+  width: 100%;
+}

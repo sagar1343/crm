@@ -9,6 +9,8 @@ class AgentForm(forms.ModelForm):
 
 
 class PropertyForm(forms.ModelForm):
+    description = forms.CharField()
+
     class Meta:
         model = Property
         fields = "__all__"
