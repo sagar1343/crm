@@ -32,6 +32,7 @@
                     </svg>
                 </label>
                 <div class="px-4">{% block title %}{% endblock %}</div>
+                {% if not editform %}
                 <div class="flex justify-end grow">
                     <button class="btn px-10 btn-primary" onclick="my_modal_1.showModal()">Add</button>
 
@@ -45,6 +46,7 @@
                         </div>
                     </dialog>
                 </div>
+                {% endif %}
             </nav>
             <div class="p-4">
                 {% block content %} {% endblock %}

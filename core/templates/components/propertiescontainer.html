@@ -5,7 +5,13 @@
         <div class="ml-4 w-full">
             <h3 class="text-lg text-zinc-900">{{ property.title }}</h3>
             <p class="text-sm text-zinc-600">{{ property.description }}</p>
+            <p class="text-sm text-zinc-600 font-semibold">{{ property.listing_agent.user.first_name }}</p>
             <p class="text-base text-zinc-600">{{ property.address }}</p>
+            <div>
+                <a href="{% url 'edit-property' property.id %}" class="btn btn-xs">
+                    <i class="ph ph-pencil"></i>
+                </a>
+            </div>
             {% load humanize %}
             <p class="capitalize text-zinc-900 mt-3">{{ property.price | intword}}</p>
             <div class="flex w-full items-center justify-between">

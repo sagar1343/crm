@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Agent, Property, Lead, Deal
-from .forms import AgentForm, DealForm, LeadForm, PropertyForm
+from .forms import AgentForm, DealForm, LeadForm, PropertyForm, EditAgentForm
 
 
 # Create your views here.
@@ -46,3 +46,36 @@ def deals(request):
     queryset = Deal.objects.all()
     context = {"deals": queryset, "form": DealForm()}
     return render(request, "pages/deals.html", context)
+
+
+def edit_agent(request, id):
+    instance = get_object_or_404(Agent, id=id)
+    form = EditAgentForm(request.POST or None, request.FILES or None, instance=instance)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("agents")
+
+    context = {"editform": form, "id": id}
+    return render(request, "pages/editagent.html", context)
+
+
+def edit_property(request, id):
+    instance = get_object_or_404(Property, id=id)
+    form = PropertyForm(request.POST or None, request.FILES or None, instance=instance)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("properties")
+
+    context = {"editform": form, "id": id}
+    return render(request, "pages/editproperty.html", context)
+
+
+def edit_lead(request, id):
+    instance = get_object_or_404(Lead, id=id)
+    form = LeadForm(request.POST or None, request.FILES or None, instance=instance)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("leads")
+
+    context = {"editform": form, "id": id}
+    return render(request, "pages/editleads.html", context)

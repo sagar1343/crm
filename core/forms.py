@@ -8,6 +8,12 @@ class AgentForm(forms.ModelForm):
         fields = "__all__"
 
 
+class EditAgentForm(forms.ModelForm):
+    class Meta:
+        model = Agent
+        exclude = ["user"]
+
+
 class PropertyForm(forms.ModelForm):
     description = forms.CharField()
 

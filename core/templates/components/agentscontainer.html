@@ -7,10 +7,15 @@
                 <img src="{{ agent.profile_photo.url }}" alt="{{ agent.user.username  }}"
                     class="w-12 h-12 rounded-full object-cover border border-gray-200" />
                 <div class="min-w-0 flex-1">
-                    <div class="flex items-center space-x-1">
+                    <div class="flex items-center space-x-4">
                         <span class="font-bold text-gray-900 hover:underline truncate">
                             {{ agent.user.first_name }}
                         </span>
+                        <div>
+                            <a href="{% url 'edit-agent' agent.id %}" class="btn btn-xs">
+                                <i class="ph ph-pencil"></i>
+                            </a>
+                        </div>
                     </div>
                     <span class="text-gray-500 text-sm hover:underline">
                         @{{ agent.user.username }}
