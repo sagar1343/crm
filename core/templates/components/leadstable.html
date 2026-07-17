@@ -23,7 +23,8 @@
                 <td><span class="badge badge-soft capitalize badge-accent">{{ row.source }}</span></td>
                 {% load humanize %}
                 <td>
-                    <form id="change-status-form" action="{% url 'update-lead-status' row.id %}" method="post">
+                    <form id="change-status-form" class="mt-0!" action="{% url 'update-lead-status' row.id %}"
+                        method="post">
                         {% csrf_token %}
                         <select name="status" id="select-status" class="select select-info">
                             {% for value, label in lead_statuses %}

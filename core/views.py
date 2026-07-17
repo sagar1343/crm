@@ -2,11 +2,49 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Agent, Property, Lead, Deal
 from .forms import AgentForm, DealForm, LeadForm, PropertyForm, EditAgentForm
 from django.views.decorators.http import require_POST
+from django.db.models import Sum, F
+from django.utils import timezone
 
 
 # Create your views here.
-def home(request):
-    return render(request, "home.html")
+def dashboard(request):
+    result = Deal.objects.filter(status=Deal.DealStatus.DONE).aggregate(
+        total=Sum("amount")
+    )
+    total_deals = (
+        Deal.objects.filter(status=Deal.DealStatus.DONE)
+        .filter(actual_closing_date__year=timezone.now().year)
+        .filter(actual_closing_date__month=timezone.now().month)
+        .count()
+    )
+    total_agents = Agent.objects.count()
+    total_leads = (
+        Lead.objects.filter(created_at__year=timezone.now().year)
+        .filter(created_at__month=timezone.now().month)
+        .count()
+    )
+
+    done_deals = Deal.objects.filter(
+        status=Deal.DealStatus.DONE
+    ).select_related("lead__assigned_agent")
+    net_profit = sum(
+        (d.amount * d.commission_percent / 100)
+        * (100 - d.lead.assigned_agent.commission_share)
+        / 100
+        for d in done_deals
+    )
+    print(net_profit)
+
+    sold_properties = Property.objects.filter(status=Property.Status.SOLD).count()
+    context = {
+        "total_sale": result["total"],
+        "total_deals": total_deals,
+        "total_agents": total_agents,
+        "total_leads": total_leads,
+        "sold_properties": sold_properties,
+        "profit": net_profit,
+    }
+    return render(request, "home.html", context)
 
 
 def agents(request):

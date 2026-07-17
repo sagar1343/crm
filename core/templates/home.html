@@ -1,4 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h1>Home</h1>
+<h1 class="text-2xl font-semibold">Dashboard</h1>
+<div class="mt-5 flex flex-wrap gap-4 w-full justify-between">
+    <div class="border-gray-200 border rounded-md px-10 py-4 flex flex-col justify-center items-center">
+        <h4 class="font-semibold">Total Sale</h4>
+        {% load humanize %}
+        <p class="text-2xl capitalize font-bold">{{ total_sale | intword }}</p>
+    </div>
+    <div class="border-gray-200 border rounded-md px-10 py-4 flex flex-col justify-center items-center">
+        <h4 class="font-semibold">Total Deals</h4>
+        <p class="text-2xl font-bold">{{ total_deals }} <span class="text-xs font-light">This month</span></p>
+    </div>
+    <div class="border-gray-200 border rounded-md px-10 py-4 flex flex-col justify-center items-center">
+        <h4 class="font-semibold">Total Agents</h4>
+        <p class="text-2xl font-bold">{{ total_agents }}</p>
+    </div>
+    <div class="border-gray-200 border rounded-md px-10 py-4 flex flex-col justify-center items-center">
+        <h4 class="font-semibold">Total Leads</h4>
+        <p class="text-2xl font-bold">{{ total_leads }} <span class="text-xs font-light">This month</span></p>
+    </div>
+    <div class="border-gray-200 border rounded-md px-10 py-4 flex flex-col justify-center items-center">
+        <h4 class="font-semibold">Sold Properties</h4>
+        <p class="text-2xl font-bold">{{ sold_properties }}</p>
+    </div>
+    <div class="border-gray-200 border rounded-md px-10 py-4 flex flex-col justify-center items-center">
+        <h4 class="font-semibold">Net Profit</h4>
+        <p class="text-2xl font-bold">{{ profit }}</p>
+    </div>
+</div>
 {% endblock %}
